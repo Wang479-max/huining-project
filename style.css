@@ -36,7 +36,7 @@ body {
   padding: 0 20px;
 }
 
-/* 顶部栏：“红色会宁”Logo */
+/* 顶部栏：小角度箭头“<<” */
 .top-bar {
   position: fixed;
   top: 0;
@@ -48,58 +48,76 @@ body {
   height: 60px;
   display: flex;
   align-items: center;
+  padding: 0 20px; /* 消除内部间隔 */
 }
 .logo {
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.arrow {
+  font-size: 1rem;
+  color: var(--color-white);
+}
+.logo-text {
+  font-size: 1.6rem;
   font-weight: bold;
   color: var(--color-white);
-  padding: 0 20px;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* 右上角可折叠导航 */
+/* 右上角导航：消除边框线，优化样式 */
 .side-nav {
   position: fixed;
   top: 80px;
-  right: 0; /* 贴紧右侧 */
+  right: 20px; /* 调整位置 */
   z-index: 998;
-  background-color: var(--color-white);
-  border-left: 2px solid var(--color-red);
-  border-bottom-left-radius: 8px;
 }
 .nav-toggle {
   background-color: var(--color-red);
   color: var(--color-white);
   border: none;
-  width: 40px;
-  height: 40px;
+  width: 40px; /* 缩小尺寸 */
+  height: 40px; /* 缩小尺寸 */
   font-size: 1.2rem;
   cursor: pointer;
   transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%; /* 圆形设计，仅显示红色 */
 }
-.nav-toggle:hover {
-  background-color: var(--color-red-dark);
+.nav-icon {
+  transition: transform 0.3s ease;
+}
+.nav-toggle:hover .nav-icon {
+  transform: rotate(90deg); /* hover 时图标旋转 */
 }
 .nav-container {
+  background-color: var(--color-white);
+  /* 消除边框线 */
   border: none;
-  border-radius: 0;
-  box-shadow: none;
-  padding: 0; /* 初始无内边距 */
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease, padding 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  width: 200px;
 }
 .nav-container.open {
-  max-height: 500px;
-  padding: 15px; /* 展开时显示内边距 */
+  max-height: 300px;
+  padding: 15px;
 }
 .side-nav ul {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 .nav-link {
   color: var(--color-red);
@@ -110,16 +128,30 @@ body {
   border-radius: 4px;
   display: block;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-red);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::before, .nav-link.active::before {
+  width: 100%;
 }
 .nav-link:hover, .nav-link.active {
-  background-color: var(--color-red);
   color: var(--color-white);
-  text-decoration: none;
+  background-color: var(--color-red);
 }
 
-/* 英雄区样式 */
+/* 英雄区样式（保持原样） */
 .hero {
-  height: calc(100vh - 60px); /* 减去顶部栏高度 */
+  height: calc(100vh - 60px); /* 减去顶部栏高度，消除间距 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -175,7 +207,7 @@ body {
   transform: translateY(-3px);
 }
 
-/* 滚动动画：元素进入视口时显示 */
+/* 滚动动画：元素进入视口时显示（保持原样） */
 .hidden-on-load {
   opacity: 0;
   transform: translateY(30px);
@@ -198,7 +230,7 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 时间轴样式 */
+/* 时间轴样式（保持原样） */
 .section {
   padding: 80px 0;
 }
@@ -289,7 +321,7 @@ body {
   margin-top: 20px;
 }
 
-/* 网格布局基础类 */
+/* 网格布局基础类（保持原样） */
 .grid {
   display: grid;
   gap: 30px;
@@ -301,7 +333,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
 }
 
-/* 文物故事样式 */
+/* 文物故事样式（保持原样） */
 .relics-container {
   margin-top: 40px;
 }
@@ -332,7 +364,7 @@ body {
   font-size: 0.95rem;
 }
 
-/* 战地家书样式（居中调整） */
+/* 战地家书样式（居中调整，保持原样） */
 .letters-container {
   display: grid;
   grid-template-columns: repeat(3, 300px); /* 固定三列，每列300px */
@@ -413,7 +445,7 @@ body {
   border-radius: 5px;
 }
 
-/* 红色人物样式 */
+/* 红色人物样式（保持原样） */
 .heroes-container {
   margin-top: 40px;
 }
@@ -444,7 +476,7 @@ body {
   color: var(--color-gray);
 }
 
-/* 精神传承样式 */
+/* 精神传承样式（保持原样） */
 .heritage-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -502,7 +534,7 @@ body {
   text-align: right;
 }
 
-/* 回到顶部按钮 */
+/* 回到顶部按钮（保持原样） */
 .back-to-top {
   position: fixed;
   bottom: 30px;
@@ -533,7 +565,7 @@ body {
   transform: translateY(-3px);
 }
 
-/* 页脚样式 */
+/* 页脚样式（保持原样） */
 .footer {
   background-color: var(--color-white);
   padding: 30px 0;
@@ -545,7 +577,7 @@ body {
   color: #888;
 }
 
-/* 图片懒加载 */
+/* 图片懒加载（保持原样） */
 .lazy-load {
   opacity: 0;
   transition: opacity 0.5s ease;
@@ -554,16 +586,32 @@ body {
   opacity: 1;
 }
 
-/* 响应式适配（移动端调整） */
+/* 响应式适配（移动端调整，保持原样） */
 @media (max-width: 768px) {
+  .top-bar {
+    padding: 0 10px;
+  }
+  .logo {
+    gap: 5px;
+  }
+  .arrow {
+    font-size: 1rem;
+  }
+  .logo-text {
+    font-size: 1.3rem;
+  }
   .side-nav {
     top: 70px;
     right: 0;
+    width: 100%; /* 移动端导航占满宽度 */
   }
   .nav-toggle {
-    width: 35px;
-    height: 35px;
-    font-size: 1rem;
+    width: 100%;
+    border-radius: 0;
+  }
+  .nav-container {
+    width: 100%;
+    right: 0;
   }
   .nav-link {
     font-size: 0.9rem;
