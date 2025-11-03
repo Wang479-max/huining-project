@@ -1,6 +1,7 @@
+/* 基础变量定义 */
 :root {
-  --color-red: #C91F37;
-  --color-red-dark: #A81A30;
+  --color-red: #C91F37; /* 主题红色 */
+  --color-red-dark: #A81A30; /* 深色红色 */
   --color-gray: #333333;
   --color-gray-light: #f5f5f5;
   --color-white: #ffffff;
@@ -14,6 +15,7 @@ html.dark {
   --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* 全局样式重置 */
 * {
   margin: 0;
   padding: 0;
@@ -25,94 +27,99 @@ body {
   color: var(--color-gray);
   line-height: 1.6;
   overflow-x: hidden;
+  padding-top: 60px; /* 顶部栏高度 */
 }
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%; /* 内容区占满宽度 */
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* 导航栏：简化箭头+布局优化 */
-.navbar {
+/* 顶部栏：“红色会宁”Logo */
+.top-bar {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: var(--color-white);
+  background-color: var(--color-red);
   box-shadow: var(--shadow);
-  z-index: 1000;
-  transition: var(--transition);
-}
-.navbar .container {
+  z-index: 999;
+  height: 60px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  height: 75px;
 }
 .logo {
   font-size: 1.2rem;
   font-weight: bold;
-  color: var(--color-red);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.menu-toggle {
-  display: none;
-  background: transparent;
-  border: none;
-  color: var(--color-gray);
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-.nav-menu {
-  display: flex;
-}
-.nav-menu ul {
-  display: flex;
-  list-style: none;
-  gap: 20px;
-}
-.nav-link {
-  color: var(--color-gray);
-  text-decoration: none;
-  font-size: 1.1rem;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition: var(--transition);
-  padding: 5px 0;
-  border-bottom: 2px solid transparent;
-}
-.nav-link:hover {
-  color: var(--color-red);
-  border-bottom: 2px solid var(--color-red);
-}
-.theme-toggle {
-  background: transparent;
-  border: none;
-  color: var(--color-gray);
-  font-size: 1.1rem;
-  cursor: pointer;
-  margin-left: 15px;
-  transition: var(--transition);
-}
-.theme-toggle:hover {
-  color: var(--color-red);
+  color: var(--color-white);
+  padding: 0 20px;
 }
 
-/* 暗色模式：提升图标可见度 */
-html.dark .nav-link i,
-html.dark .theme-toggle i,
-html.dark .section-title i,
-html.dark .btn i {
-  color: #ddd;
+/* 右上角可折叠导航 */
+.side-nav {
+  position: fixed;
+  top: 80px;
+  right: 0; /* 贴紧右侧 */
+  z-index: 998;
+  background-color: var(--color-white);
+  border-left: 2px solid var(--color-red);
+  border-bottom-left-radius: 8px;
+}
+.nav-toggle {
+  background-color: var(--color-red);
+  color: var(--color-white);
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav-toggle:hover {
+  background-color: var(--color-red-dark);
+}
+.nav-container {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0; /* 初始无内边距 */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+.nav-container.open {
+  max-height: 500px;
+  padding: 15px; /* 展开时显示内边距 */
+}
+.side-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.nav-link {
+  color: var(--color-red);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+}
+.nav-link:hover, .nav-link.active {
+  background-color: var(--color-red);
+  color: var(--color-white);
+  text-decoration: none;
 }
 
 /* 英雄区样式 */
 .hero {
-  height: 100vh;
+  height: calc(100vh - 60px); /* 减去顶部栏高度 */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,7 +154,7 @@ html.dark .btn i {
 }
 .hero p {
   font-size: 1.2rem;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   opacity: 0.9;
 }
 .btn {
@@ -161,14 +168,14 @@ html.dark .btn i {
   transition: var(--transition);
   border: none;
   cursor: pointer;
+  margin-top: 10px;
 }
 .btn:hover {
   background-color: var(--color-red-dark);
   transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* 滚动触发动画 */
+/* 滚动动画：元素进入视口时显示 */
 .hidden-on-load {
   opacity: 0;
   transform: translateY(30px);
@@ -191,22 +198,19 @@ html.dark .btn i {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* 时间轴样式：图文间距优化 */
+/* 时间轴样式 */
 .section {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 .section-title {
   text-align: center;
   font-size: 1.8rem;
   color: var(--color-red);
-  margin-bottom: 60px;
+  margin-bottom: 50px;
   display: inline-block;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-}
-.section-title i {
-  margin-right: 10px;
 }
 .timeline-container {
   position: relative;
@@ -279,24 +283,68 @@ html.dark .btn i {
 }
 .timeline-card img {
   width: 100%;
-  height: 200px;
+  height: auto;
   object-fit: cover;
   border-radius: 5px;
   margin-top: 20px;
 }
 
-/* 战地家书：终极文字溢出解决方案 */
-.bg-light {
-  background-color: var(--color-gray-light);
+/* 网格布局基础类 */
+.grid {
+  display: grid;
+  gap: 30px;
 }
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 文物故事样式 */
+.relics-container {
+  margin-top: 40px;
+}
+.relic-card {
+  background-color: var(--color-white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+.relic-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.relic-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.relic-card h3 {
+  padding: 20px 20px 10px;
+  color: var(--color-red);
+  font-size: 1.1rem;
+}
+.relic-card p {
+  padding: 0 20px 20px;
+  color: var(--color-gray);
+  font-size: 0.95rem;
+}
+
+/* 战地家书样式（居中调整） */
 .letters-container {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 300px); /* 固定三列，每列300px */
+  gap: 30px;
+  margin-top: 40px;
+  justify-content: center; /* 网格水平居中 */
 }
 .letter-book {
   width: 100%;
-  max-width: 600px;
-  height: 700px; /* 大幅增加容器高度 */
+  max-width: 400px;
+  height: 700px;
+  margin: 0 auto;
   perspective: 1500px;
 }
 .letter-cover, .letter-inner {
@@ -312,7 +360,7 @@ html.dark .btn i {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 60px 30px; /* 大幅增加顶部内边距 */
+  padding: 60px 30px;
   text-align: center;
 }
 .letter-cover {
@@ -354,7 +402,7 @@ html.dark .btn i {
 .letter-content {
   text-align: left;
   line-height: 1.9;
-  margin: 40px 0 30px; /* 大幅增加顶部间距 */
+  margin: 40px 0 30px;
   max-width: 100%;
   padding: 0 10px;
 }
@@ -365,7 +413,38 @@ html.dark .btn i {
   border-radius: 5px;
 }
 
-/* 精神传承样式：图文布局优化 */
+/* 红色人物样式 */
+.heroes-container {
+  margin-top: 40px;
+}
+.hero-card {
+  background-color: var(--color-white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: var(--transition);
+}
+.hero-card:hover {
+  transform: translateY(-5px);
+}
+.hero-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.hero-card h3 {
+  padding: 15px 0 5px;
+  color: var(--color-red);
+  font-size: 1.1rem;
+}
+.hero-card p {
+  padding: 0 15px 20px;
+  font-size: 0.95rem;
+  color: var(--color-gray);
+}
+
+/* 精神传承样式 */
 .heritage-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -373,7 +452,7 @@ html.dark .btn i {
 }
 .heritage-story img {
   width: 100%;
-  height: 250px;
+  height: auto;
   object-fit: cover;
   border-radius: 5px;
   margin-top: 20px;
@@ -428,13 +507,13 @@ html.dark .btn i {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+  width: 100px;
+  height: 40px;
+  border-radius: 50px;
   background-color: var(--color-red);
   color: var(--color-white);
   border: none;
-  font-size: 1.5rem;
+  font-size: 0.9rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -475,59 +554,20 @@ html.dark .btn i {
   opacity: 1;
 }
 
-/* 响应式适配：移动端优化 */
+/* 响应式适配（移动端调整） */
 @media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
+  .side-nav {
+    top: 70px;
+    right: 0;
   }
-  .nav-menu {
-    position: absolute;
-    top: 75px;
-    left: 0;
-    width: 100%;
-    background-color: var(--color-white);
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition);
-  }
-  .nav-menu.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-  .nav-menu ul {
-    flex-direction: column;
-    gap: 0;
-  }
-  .nav-menu li {
-    border-bottom: 1px solid #eee;
+  .nav-toggle {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
   }
   .nav-link {
-    font-size: 1rem;
-    padding: 12px 20px;
-    border-bottom: none;
-  }
-  .nav-link:hover {
-    background-color: var(--color-gray-light);
-    border-bottom: none;
-  }
-  .timeline-container::after {
-    left: 30px;
-  }
-  .timeline-item {
-    width: 100%;
-    padding-left: 70px;
-    padding-right: 20px;
-    left: 0 !important;
-  }
-  .timeline-item.left::after, .timeline-item.right::after {
-    left: 23px;
-    right: auto;
-  }
-  .heritage-content {
-    grid-template-columns: 1fr;
+    font-size: 0.9rem;
+    padding: 6px 10px;
   }
   .hero h1 {
     font-size: 2.5rem;
@@ -535,18 +575,10 @@ html.dark .btn i {
   .hero p {
     font-size: 1rem;
   }
-  .letter-book {
-    width: 100%;
-    max-width: 400px;
-    height: 650px;
+  .grid-2, .grid-3, .heritage-content {
+    grid-template-columns: 1fr;
   }
-  .letter-inner {
-    padding: 25px;
-  }
-  .timeline-card img,
-  .letter-inner img,
-  .heritage-story img {
-    height: auto;
-    margin-top: 15px;
+  .letters-container {
+    grid-template-columns: 1fr; /* 移动端单列 */
   }
 }

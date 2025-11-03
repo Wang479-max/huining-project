@@ -5,54 +5,71 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>会宁会师·红色家书传</title>
   <link rel="stylesheet" href="style.css">
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-  <!-- 导航栏：简化箭头+布局优化 -->
-  <header class="navbar">
+  <!-- 顶部栏：“红色会宁”Logo -->
+  <header class="top-bar">
     <div class="container">
-      <div class="logo">
-        <<<<<i class="fa fa-flag-o" aria-hidden="true"></</</</i> 红色会宁
-      </div>
-      <button class="menu-toggle" aria-label="打开菜单">
-        <<<<<i class="fa fa-bars" aria-hidden="true"></</</</i>
-      </button>
-      <nav class="nav-menu">
-        <ul>
-          <li><a href="#home" class="nav-link"><<<i class="fa fa-home" aria-hidden="true"></</</</i> 首页</a></li>
-          <li><a href="#timeline" class="nav-link"><<<i class="fa fa-history" aria-hidden="true"></</</</i> 历史时间轴</a></li>
-          <li><a href="#letters" class="nav-link"><<<i class="fa fa-envelope-o" aria-hidden="true"></</</</i> 战地家书</a></li>
-          <li><a href="#heritage" class="nav-link"><<<i class="fa fa-star-o" aria-hidden="true"></</</</i> 精神传承</a></li>
-        </ul>
-      </nav>
-      <button class="theme-toggle" aria-label="切换暗色模式">
-        <<<<<i class="fa fa-moon-o" aria-hidden="true"></</</</i>
-      </button>
+      <div class="logo">红色会宁</div>
     </div>
   </header>
 
-  <!-- 首页英雄区：背景图+文字动画 -->
+  <!-- 右上角可折叠导航（删除AI问答导航项） -->
+  <nav class="side-nav">
+    <button class="nav-toggle" aria-label="切换导航">
+      <<<<<<<<i class="fa fa-bars"></</</</</</</i>
+    </button>
+    <div class="nav-container">
+      <ul>
+        <li><a href="#home" class="nav-link active">首页</a></li>
+        <li><a href="#timeline" class="nav-link">时间轴</a></li>
+        <li><a href="#relics" class="nav-link">文物故事</a></li>
+        <li><a href="#letters" class="nav-link">战地家书</a></li>
+        <li><a href="#heroes" class="nav-link">红色人物</a></li>
+        <li><a href="#heritage" class="nav-link">精神传承</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 首页英雄区 -->
   <section id="home" class="hero parallax-bg">
     <div class="hero-content">
       <h1 class="fade-in">会宁会师</h1>
       <p class="fade-in-delay">长征胜利的里程碑 · 红色精神的传承地</p>
-      <a href="#timeline" class="btn scroll-btn">
-        探索历史 <<<i class="fa fa-angle-down" aria-hidden="true"></</</</i>
-      </a>
+      <p class="fade-in-delay-2">“会宁，好地名！红军会师，中国安宁。”——毛泽东</p>
+      <p class="fade-in-delay-3">三大主力会师标志着长征胜利结束，为全民族抗战奠定基础</p>
+      <a href="#timeline" class="btn scroll-btn">探索历史</a>
     </div>
   </section>
 
-  <!-- 历史时间轴：图文布局优化 -->
+  <!-- 历史时间轴 -->
   <section id="timeline" class="section">
     <div class="container">
-      <h2 class="section-title"><<<i class="fa fa-map-signs" aria-hidden="true"></</</</i> 会师历史时间轴</h2>
+      <h2 class="section-title">会师历史时间轴</h2>
       <div class="timeline-container">
         <div class="timeline-item left hidden-on-load">
+          <div class="timeline-card">
+            <span class="timeline-date">1936.09</span>
+            <h3>会师地点战略决策</h3>
+            <p>周恩来提出会宁为会师地，因其北依黄河、紧靠西兰公路，是战略枢纽。毛泽东赞“会宁，好地名，红军会师，中国安宁”。</p>
+            <img src="images/timeline_strategy.jpg" alt="会师决策场景复原图" class="lazy-load">
+          </div>
+        </div>
+        <div class="timeline-item right hidden-on-load">
           <div class="timeline-card">
             <span class="timeline-date">1936.10.09</span>
             <h3>红一、红四方面军会师</h3>
             <p>红四方面军总指挥部到达会宁，与红一方面军部队胜利会师，拉开红军主力西北大会师序幕。</p>
             <img src="images/timeline_huining1.jpg" alt="红一红四方面军会师场景" class="lazy-load">
+          </div>
+        </div>
+        <div class="timeline-item left hidden-on-load">
+          <div class="timeline-card">
+            <span class="timeline-date">1936.10.10</span>
+            <h3>会师联欢大会</h3>
+            <p>红一、红四方面军在会宁文庙大成殿召开联欢会，战士与群众共庆胜利，场面蔚为壮观。</p>
+            <img src="images/timeline_gala.jpg" alt="会师联欢会旧址" class="lazy-load">
           </div>
         </div>
         <div class="timeline-item right hidden-on-load">
@@ -67,18 +84,50 @@
     </div>
   </section>
 
-  <!-- 战地家书：终极文字溢出解决方案 -->
-  <section id="letters" class="section bg-light">
+  <!-- 文物故事板块 -->
+  <section id="relics" class="section bg-light">
     <div class="container">
-      <h2 class="section-title"><<<i class="fa fa-pencil" aria-hidden="true"></</</</i> 战地家书 · 纸短情长</h2>
+      <h2 class="section-title">文物故事 · 历史见证</h2>
+      <div class="relics-container grid grid-2">
+        <div class="relic-card hidden-on-load">
+          <img src="images/relic_registry.jpg" alt="红军党员登记表" class="lazy-load">
+          <h3>红军党员登记表</h3>
+          <p>红军撤离时遗落的登记表，被会宁当地周大娘缝在枕头里秘密保存70年，2006年捐赠给纪念馆，现为国家一级文物，字里行间可见革命信仰的力量。</p>
+        </div>
+        <div class="relic-card hidden-on-load">
+          <img src="images/relic_seal.jpg" alt="苏维埃政府印章" class="lazy-load">
+          <h3>会宁县苏维埃政府印章</h3>
+          <p>1936年会师期间启用的木质印章，印文为“会宁县苏维埃政府”，见证红军在会宁建立临时政权、开展土地革命的历史，边缘磨损痕迹仍清晰可见。</p>
+        </div>
+        <div class="relic-card hidden-on-load">
+          <img src="images/relic_altar.jpg" alt="文庙供桌" class="lazy-load">
+          <h3>会师联欢会供桌</h3>
+          <p>会宁文庙大成殿内的清代供桌，1936年10月10日联欢会时，曾用来摆放文件、奖品与慰问品，桌面留存的划痕是当年战士刻写标语的痕迹。</p>
+        </div>
+        <div class="relic-card hidden-on-load">
+          <img src="images/relic_clock.jpg" alt="布谷鸟报时钟" class="lazy-load">
+          <h3>布谷鸟报时钟</h3>
+          <p>1936年红军缴获的德国产报时钟，每小时发出“布谷”声，曾用于会宁前线指挥部计时，2002年从民间征集入库，至今仍能正常运行。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- 以下代码请放入前端html文件的body内 -->
+<script src="https://agi-dev-platform-web.bj.bcebos.com/ai_apaas/embed/output/embedLiteSDK.js?responseExpires=0"></script>
+<script>
+    new EmbedLiteSDK({appId: 'fde0c579-a63c-4ddd-b651-eea848a81e91', code: 'embedMfldfeB8XopNmBVO49WI'});
+</script>
+  <!-- 战地家书 -->
+  <section id="letters" class="section">
+    <div class="container">
+      <h2 class="section-title">战地家书 · 纸短情长</h2>
       <div class="letters-container">
+        <!-- 致吾妻书 -->
         <div class="letter-book">
           <div class="letter-cover">
             <h3>致吾妻书</h3>
             <p>1936年10月 · 会宁</p>
-            <button class="open-book" aria-label="翻开家书">
-              <<<i class="fa fa-book" aria-hidden="true"></</</</i> 翻开
-            </button>
+            <button class="open-book" aria-label="翻开家书">翻开</button>
           </div>
           <div class="letter-inner hidden">
             <div class="letter-content">
@@ -89,32 +138,90 @@
               <p>1936年10月10日</p>
             </div>
             <img src="images/letter_soldier.jpg" alt="红军战士老照片" class="lazy-load">
-            <button class="close-book" aria-label="收起家书">
-              <<<i class="fa fa-times" aria-hidden="true"></</</</i> 收起
-            </button>
+            <button class="close-book" aria-label="收起家书">收起</button>
+          </div>
+        </div>
+        <!-- 致父母书 -->
+        <div class="letter-book">
+          <div class="letter-cover">
+            <h3>致父母书</h3>
+            <p>1936年10月 · 会宁前线</p>
+            <button class="open-book" aria-label="翻开家书">翻开</button>
+          </div>
+          <div class="letter-inner hidden">
+            <div class="letter-content">
+              <p>爹娘膝下：</p>
+              <p>今晨攻克会宁城，城头红旗招展，百姓箪食壶浆相迎，方知“得民心者得天下”非虚言。爹的腿伤可曾好转？娘莫再为我熬夜缝补衣物，军中已发冬装。</p>
+              <p>昨日军中联欢，见老班长用树叶吹奏家乡小调，忽念咱家老槐树。若我牺牲，望葬于树下，守着咱的庄稼地；若胜利，定归乡陪爹娘种麦。</p>
+              <p>儿 叩上</p>
+              <p>1936年10月8日</p>
+            </div>
+            <img src="images/letter_parent.jpg" alt="红军与百姓合影" class="lazy-load">
+            <button class="close-book" aria-label="收起家书">收起</button>
+          </div>
+        </div>
+        <!-- 致战友书 -->
+        <div class="letter-book">
+          <div class="letter-cover">
+            <h3>致战友书</h3>
+            <p>1936年10月 · 老君坡会合后</p>
+            <button class="open-book" aria-label="翻开家书">翻开</button>
+          </div>
+          <div class="letter-inner hidden">
+            <div class="letter-content">
+              <p>子轩吾弟：</p>
+              <p>老君坡一见，恍如隔世！还记得夹金山上你背我过雪坡，泸定桥边你拉我上岸，如今你我各率部队会师会宁，不负当年“同赴国难”之约。</p>
+              <p>缴获的电台已调试完毕，今夜可收陕北消息。他日若并肩抗日，愿共饮黄河水；若不幸捐躯，亦当同入烈士册，让后人知我红军兄弟情。</p>
+              <p>兄 谨书</p>
+              <p>1936年10月16日</p>
+            </div>
+            <img src="images/letter_comrade.jpg" alt="红军电台操作场景" class="lazy-load">
+            <button class="close-book" aria-label="收起家书">收起</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 精神传承：留言板+红色教育场景 -->
+  <!-- 红色人物板块 -->
+  <section id="heroes" class="section bg-light">
+    <div class="container">
+      <h2 class="section-title">红色人物 · 精神脊梁</h2>
+      <div class="heroes-container grid grid-3">
+        <div class="hero-card hidden-on-load">
+          <img src="images/hero_helong.jpg" alt="贺龙" class="lazy-load">
+          <h3>贺龙（1896-1969）</h3>
+          <p>红二方面军总指挥，率部历经11个月、转战8省，行程1.6万里，突破国民党军围追堵截，坚定支持中央北上战略，促成三大主力会师。</p>
+        </div>
+        <div class="hero-card hidden-on-load">
+          <img src="images/hero_renbishi.jpg" alt="任弼时" class="lazy-load">
+          <h3>任弼时（1904-1950）</h3>
+          <p>红二方面军政治委员，与贺龙统一指挥部队，在甘孜会师后抵制张国焘分裂主张，推动红二、四方面军共同北上，为会师奠定政治基础。</p>
+        </div>
+        <div class="hero-card hidden-on-load">
+          <img src="images/hero_zhou大娘.jpg" alt="周大娘" class="lazy-load">
+          <h3>周大娘（1898-1986）</h3>
+          <p>会宁当地普通百姓，1936年收留受伤红军战士，将遗落的党员登记表缝在枕头里珍藏，面对国民党搜查始终未交出，1986年临终前嘱托子女捐赠文物。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 精神传承 -->
   <section id="heritage" class="section">
     <div class="container">
-      <h2 class="section-title"><<<i class="fa fa-heart-o" aria-hidden="true"></</</</i> 红色精神 · 薪火相传</h2>
+      <h2 class="section-title">红色精神 · 薪火相传</h2>
       <div class="heritage-content">
         <div class="heritage-story hidden-on-load">
           <h3>新时代的会宁红</h3>
-          <p>如今的会宁，依托“红军会师旧址”建立红色教育基地，每年接待数十万青少年研学团队，让长征精神在新时代焕发新活力。</p>
+          <p>如今的会宁，依托“红军会宁会师旧址”建立全国重点文物保护单位、全国爱国主义教育示范基地，每年接待数十万青少年研学团队，通过实景演出、文物展陈、研学课程，让长征精神在新时代焕发新活力。</p>
           <img src="images/heritage_education.jpg" alt="会宁红色教育基地" class="lazy-load">
         </div>
         <div class="message-board hidden-on-load">
           <h3>红色寄语留言板</h3>
           <div class="message-input">
             <textarea id="message-text" placeholder="写下你对红色精神的感悟..." maxlength="200"></textarea>
-            <button id="submit-message" class="btn">
-              <<<i class="fa fa-paper-plane-o" aria-hidden="true"></</</</i> 提交
-            </button>
+            <button id="submit-message" class="btn">提交</button>
           </div>
           <div id="messages-list" class="messages-list"></div>
         </div>
@@ -123,9 +230,7 @@
   </section>
 
   <!-- 回到顶部按钮 -->
-  <button id="back-to-top" class="back-to-top" aria-label="回到顶部">
-    <<<i class="fa fa-angle-up" aria-hidden="true"></</</</i>
-  </button>
+  <button id="back-to-top" class="back-to-top" aria-label="回到顶部">回到顶部</button>
 
   <!-- 页脚 -->
   <footer class="footer">

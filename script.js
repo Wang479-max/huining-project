@@ -1,137 +1,93 @@
-const utils = {
-  isInViewport: (el) => {
-    const rect = el.getBoundingClientRect();
-    return rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 && rect.bottom >= 0;
-  },
-  formatTime: () => {
-    const date = new Date();
-    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-  },
-  storage: {
-    get: (key) => JSON.parse(localStorage.getItem(key)) || [],
-    set: (key, data) => localStorage.setItem(key, JSON.stringify(data))
+// 右侧导航折叠功能
+const navToggle = document.querySelector('.nav-toggle');
+const navContainer = document.querySelector('.nav-container');
+
+navToggle.addEventListener('click', function() {
+  navContainer.classList.toggle('open');
+});
+
+// 点击导航项后自动收起
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function() {
+    navContainer.classList.add('open');
+  });
+});
+
+// 导航激活状态切换
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', function() {
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.classList.remove('active');
+    });
+    this.classList.add('active');
+  });
+});
+
+// 滚动动画：元素进入视口时显示
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.hidden-on-load').forEach(el => {
+  observer.observe(el);
+});
+
+// 图片懒加载（示例，实际需结合IntersectionObserver）
+document.querySelectorAll('.lazy-load').forEach(img => {
+  img.classList.add('loaded');
+});
+
+// 回到顶部按钮
+const backToTopBtn = document.getElementById('back-to-top');
+window.addEventListener('scroll', function() {
+  if (window.pageYOffset > 300) {
+    backToTopBtn.classList.add('show');
+  } else {
+    backToTopBtn.classList.remove('show');
   }
-};
+});
 
-document.addEventListener('DOMContentLoaded', () => {
-  const navbar = document.querySelector('.navbar');
-  const menuToggle = document.querySelector('.menu-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  window.addEventListener('scroll', () => {
-    navbar.style.height = window.scrollY > 50 ? '60px' : '75px';
+backToTopBtn.addEventListener('click', function() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
   });
-  menuToggle.addEventListener('click', () => {
-    navMenu.classList.toggle('active');
-    const icon = menuToggle.querySelector('i');
-    icon.classList.toggle('fa-bars');
-    icon.classList.toggle('fa-times');
+});
+
+// 留言板功能
+const submitBtn = document.getElementById('submit-message');
+const messageText = document.getElementById('message-text');
+const messagesList = document.getElementById('messages-list');
+
+submitBtn.addEventListener('click', function() {
+  const message = messageText.value.trim();
+  if (message) {
+    const now = new Date();
+    const timeStr = now.toLocaleString();
+    const messageItem = document.createElement('div');
+    messageItem.className = 'message-item';
+    messageItem.innerHTML = `
+      <p>${message}</p>
+      <div class="message-time">${timeStr}</div>
+    `;
+    messagesList.appendChild(messageItem);
+    messageText.value = '';
+  }
+});
+
+// 家书翻页功能
+document.querySelectorAll('.open-book').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.letter-book').classList.add('open');
   });
+});
 
-  const themeToggle = document.querySelector('.theme-toggle');
-  const html = document.documentElement;
-  const savedTheme = localStorage.getItem('theme');
-  if (savedTheme === 'dark') html.classList.add('dark');
-  themeToggle.addEventListener('click', () => {
-    html.classList.toggle('dark');
-    const icon = themeToggle.querySelector('i');
-    icon.classList.toggle('fa-moon-o');
-    icon.classList.toggle('fa-sun-o');
-    localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
-  });
-
-  const animateElements = document.querySelectorAll('.hidden-on-load');
-  const checkAnimate = () => {
-    animateElements.forEach(el => {
-      if (utils.isInViewport(el) && !el.classList.contains('show')) {
-        el.classList.add('show');
-      }
-    });
-  };
-  checkAnimate();
-  window.addEventListener('scroll', checkAnimate);
-
-  const lazyImages = document.querySelectorAll('.lazy-load');
-  const loadLazyImage = (el) => {
-    if (utils.isInViewport(el) && !el.classList.contains('loaded')) {
-      el.src = el.src;
-      el.classList.add('loaded');
-    }
-  };
-  lazyImages.forEach(loadLazyImage);
-  window.addEventListener('scroll', () => lazyImages.forEach(loadLazyImage));
-
-  const letterBook = document.querySelector('.letter-book');
-  const openBookBtn = document.querySelector('.open-book');
-  const closeBookBtn = document.querySelector('.close-book');
-  openBookBtn.addEventListener('click', () => letterBook.classList.add('open'));
-  closeBookBtn.addEventListener('click', () => letterBook.classList.remove('open'));
-
-  const messageText = document.getElementById('message-text');
-  const submitBtn = document.getElementById('submit-message');
-  const messagesList = document.getElementById('messages-list');
-  const MESSAGE_KEY = 'redHeritageMessages';
-  const renderMessages = () => {
-    const messages = utils.storage.get(MESSAGE_KEY);
-    messagesList.innerHTML = '';
-    messages.reverse().forEach(msg => {
-      const messageItem = document.createElement('div');
-      messageItem.className = 'message-item';
-      messageItem.innerHTML = `
-        <p>${msg.content}</p>
-        <span class="message-time">${msg.time}</span>
-        <button class="delete-message" data-index="${msg.id}">
-          <<<i class="fa fa-trash-o" aria-hidden="true"></</</</i>
-        </button>
-      `;
-      messagesList.appendChild(messageItem);
-      messageItem.querySelector('.delete-message').addEventListener('click', (e) => {
-        const id = e.target.closest('.delete-message').dataset.index;
-        const filteredMessages = messages.filter(m => m.id !== id);
-        utils.storage.set(MESSAGE_KEY, filteredMessages);
-        renderMessages();
-      });
-    });
-  };
-  submitBtn.addEventListener('click', () => {
-    const content = messageText.value.trim();
-    if (content) {
-      const messages = utils.storage.get(MESSAGE_KEY);
-      messages.push({
-        id: Date.now().toString(),
-        content,
-        time: utils.formatTime()
-      });
-      utils.storage.set(MESSAGE_KEY, messages);
-      messageText.value = '';
-      renderMessages();
-    }
-  });
-  renderMessages();
-
-  document.querySelectorAll('.scroll-btn, .nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const targetId = link.getAttribute('href');
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        navMenu.classList.remove('active');
-        menuToggle.querySelector('i').classList.remove('fa-times');
-        menuToggle.querySelector('i').classList.add('fa-bars');
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
-  const backToTopBtn = document.getElementById('back-to-top');
-  window.addEventListener('scroll', () => {
-    backToTopBtn.classList.toggle('show', window.scrollY > 500);
-  });
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+document.querySelectorAll('.close-book').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.letter-book').classList.remove('open');
   });
 });
