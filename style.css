@@ -337,7 +337,7 @@ body {
 }
 
 .relic-img {
-  height: 220px; /* 统一文物图片高度 */
+  height: 300px; /* 统一文物图片高度 */
   object-fit: cover;
 }
 

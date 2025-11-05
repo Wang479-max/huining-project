@@ -46,29 +46,49 @@ document.querySelectorAll('.lazy-load').forEach(img => {
   lazyLoadObserver.observe(img);
 });
 
-// 5. 通用图片交互（时间轴+文物+人物）
+// 5. 图片交互：鼠标悬停显示文字（替换原点击交互）
 const interactiveImgs = document.querySelectorAll('.interactive-img');
 interactiveImgs.forEach(imgContainer => {
-  imgContainer.addEventListener('click', () => {
-    imgContainer.classList.toggle('active');
+  // 鼠标移入显示文字
+  imgContainer.addEventListener('mouseenter', () => {
+    imgContainer.classList.add('active');
+  });
+  // 鼠标移出隐藏文字
+  imgContainer.addEventListener('mouseleave', () => {
+    imgContainer.classList.remove('active');
   });
 });
 
-// 6. 战地家书展开/收起
+// 6. 战地家书：翻页音效+展开/收起
+const pageTurnSound = document.getElementById('pageTurnSound');
 const openLetterBtns = document.querySelectorAll('.open-letter');
 const closeLetterBtns = document.querySelectorAll('.close-letter');
 
+// 音效播放函数（避免重复播放）
+function playPageSound() {
+  pageTurnSound.currentTime = 0; // 重置播放位置
+  pageTurnSound.volume = 0.3; // 音量控制（0-1）
+  pageTurnSound.play().catch(err => {
+    console.log('音效播放失败（浏览器限制）：', err);
+  });
+}
+
+// 家书展开（带音效）
 openLetterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const letterBook = btn.closest('.letter-book');
     letterBook.classList.add('open');
+    playPageSound(); // 播放翻页音效
   });
 });
 
+// 家书收起（可选音效，默认关闭）
 closeLetterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const letterBook = btn.closest('.letter-book');
     letterBook.classList.remove('open');
+    // 如需关闭音效，取消下方注释并添加对应音频文件
+    // playPageSound();
   });
 });
 
@@ -101,7 +121,14 @@ function renderMessages(messages) {
 
 submitBtn.addEventListener('click', () => {
   const content = messageText.value.trim();
-  if (!content) return;
+  if (!content) {
+    alert('请输入留言内容～');
+    return;
+  }
+  if (content.length > 200) {
+    alert('留言长度不能超过200字哦～');
+    return;
+  }
   const time = new Date().toLocaleString('zh-CN', {
     year: 'numeric', month: 'short', day: 'numeric',
     hour: '2-digit', minute: '2-digit'
@@ -113,4 +140,5 @@ submitBtn.addEventListener('click', () => {
   messageText.value = '';
 });
 
+// 初始化留言板
 window.addEventListener('DOMContentLoaded', initMessages);

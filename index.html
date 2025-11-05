@@ -6,21 +6,27 @@
   <title>会宁会师 · 红色记忆</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- 新增翻页音效资源 -->
+  <audio id="pageTurnSound" preload="auto">
+    <source src="audio/page_turn.mp3" type="audio/mpeg">
+    <source src="audio/page_turn.ogg" type="audio/ogg">
+  </audio>
 </head>
 <body>
-  <!-- 顶部栏 -->
+  
+<script src="https://agi-dev-platform-web.cdn.bcebos.com/ai_apaas/embed/output/embedLiteSDK.js?responseExpires=0&t=1762358328653"></script>
+<script>
+   new EmbedLiteSDK({appId: 'fde0c579-a63c-4ddd-b651-eea848a81e91', code: 'embedMfldfeB8XopNmBVO49WI'});
+</script>
+  <!-- 顶部栏（修正logo多余<符号） -->
   <header class="top-bar">
     <div class="container">
       <div class="logo">
-        <<span class="logo-text">红色会宁</span>
+        <span class="logo-text">红色会宁</span>
       </div>
     </div>
   </header>
-<!-- 以下代码请放入前端html文件的body内 -->
-<script src="https://agi-dev-platform-web.bj.bcebos.com/ai_apaas/embed/output/embedLiteSDK.js?responseExpires=0"></script>
-<script>
-    new EmbedLiteSDK({appId: 'fde0c579-a63c-4ddd-b651-eea848a81e91', code: 'embedMfldfeB8XopNmBVO49WI'});
-</script>
+
   <!-- 导航 -->
   <nav class="side-nav">
     <button class="nav-toggle" aria-label="展开导航">菜单</button>
@@ -156,7 +162,7 @@
     </div>
   </section>
 
-  <!-- 战地家书（容器拉大） -->
+  <!-- 战地家书 -->
   <section id="letters" class="section">
     <div class="container">
       <h2 class="section-title">战地家书 · 纸短情长</h2>
@@ -237,7 +243,7 @@
     </div>
   </section>
 
-  <!-- 红色人物（容器拉大，照片完全显示） -->
+  <!-- 红色人物 -->
   <section id="heroes" class="section bg-light">
     <div class="container">
       <h2 class="section-title">红色人物 · 精神脊梁</h2>
